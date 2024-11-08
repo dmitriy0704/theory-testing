@@ -144,12 +144,15 @@ TestResult
 
 **_Метод и описание_**
 
-- _**void assertEquals(boolean expected, boolean actual)**_ - Проверяет, равенство
+- _**void assertEquals(boolean expected, boolean actual)**_ - Проверяет,
+  равенство
   значений двух примитивных типов данных.
 - _**void assertFalse(boolean condition)**_ - Проверяет, является ли утверждение
   ложным.
-- _**void assertNotNull(Object object)**_ - Проверяет, что объект не является null
-- _**void assertNull(Object object)**_ - Проверяет, что данный объект не является
+- _**void assertNotNull(Object object)**_ - Проверяет, что объект не является
+  null
+- _**void assertNull(Object object)**_ - Проверяет, что данный объект не
+  является
   типом null
 - _**void assertTrue(boolean condition)_** - Проверяет, что указанное выражение
   является истинным (true)
@@ -162,6 +165,7 @@ TestResult
 public class Calculator {
     private int firstNumber;
     private int secondNumber;
+
     public Calculator() {
     }
 
@@ -192,17 +196,128 @@ public class Calculator {
 }
 
 class CalculatorTest {
-  private Calculator calculator = new Calculator(10, 20);
+    private Calculator calculator = new Calculator(10, 20);
 
-  @Test
-  public void shouldCreateCalculatorInstance() {
-    assertNotNull(calculator);
-  }
+    @Test
+    public void shouldCreateCalculatorInstance() {
+        assertNotNull(calculator);
+    }
 
-  @Test
-  public void shouldReturnCorrectSum() {
-    assertEquals(30, calculator.calculateSum());
-  }
+    @Test
+    public void shouldReturnCorrectSum() {
+        assertEquals(30, calculator.calculateSum());
+    }
 }
 
+```
+
+## Утверждения
+
+При написании тестов практически всегда используются утверждения, большинство
+из которых находятся в классе Assert.
+
+Данный класс содержит набор утверждений, которые крайне облегчают процесс
+тестирования. Записываются только те утверждения, которые не прошли.
+
+**Наиболее важные методы класса Assert:**
+
+**void assertTrue(boolean expected, boolean actual)** - Проверяет истинность
+утверждения
+
+- **void assertFalse(boolean condition)** - Проверяет ложность утверждения
+- **void assertNotNull(Object object)** - Проверяет, что объект не является null
+- **void assertNull(Object object)** - Проверяет, является ли объект null
+- **void assertSame(boolean condition)** - Проверяет, ссылаются ли ссылки двух
+  объектов на один и тот же объект.
+- **void assertNotSame(boolean condition)** - Проверяет, не ссылаются ли ссылки
+  двух объектов на один и тот же объект.
+
+```java
+public class AssertionTests {
+    @Test
+    public void shouldDemonstrateAssertionsTest() {
+        Integer first = 1;
+        Integer second = 2;
+        Integer repeatFirst = 1;
+
+        Integer[] expectedIntegerArray = {1, 2, 3, 4, 5};
+        Integer[] resultIntegerArray = {1, 2, 3, 4, 5};
+
+        assertEquals(first,repeatFirst);
+
+        assertNotNull(second);
+
+        assertSame(first, repeatFirst);
+
+        assertArrayEquals(expectedIntegerArray, resultIntegerArray);
+    }
+
+}
+```
+
+
+**_Аннотации_**
+
+Аннотации представляют собой, своего рода, теги, которые мы добавляем в код и 
+применяем их к классам и методам. По назначению мы можем их разделить на 
+следующие группы:
+
+- игнорируют методы и классы
+- запускаются перед и после всех методов
+- запускаются до и после всех тестовых методов
+
+**@Test**  
+Указывает, что данный метод (public void) может быть запущен, как тестовый случай.
+
+**@Before**  
+Методы с данной аннотацией запускаются перед каждым тестом.
+
+**@After**  
+Методы с данной аннотацией запускаются после каждого теста.
+
+**@BeforeClass**  
+Запускается один раз перед запуском любого тестового метода в классе (метод 
+должен быть статическим).
+
+**@AfterClass**  
+Запускается один раз после запуска любого тестового метода в классе (метод 
+должен быть статическим).
+
+**@Ignore**
+Тестовые методы с данной аннотацией не будут выполнены.
+
+
+```java
+public class AnnotationTests {
+    @BeforeClass
+    public static void beforeClass(){
+        System.out.println("This method has been executed first...");
+    }
+
+    @AfterClass
+    public static void afterClass(){
+        System.out.println("This method has been executed last...");
+    }
+
+    @Before
+    public void before(){
+        System.out.println("Before each test");
+    }
+
+    @After
+    public void after(){
+        System.out.println("After each test");
+    }
+
+    @Test
+    public void simpleTest(){
+        System.out.println("This is simple test");
+    }
+
+    @Ignore
+    @Test
+    public void ignoreTest(){
+        System.out.println("This test will be ignored");
+    }
+}
 ```
