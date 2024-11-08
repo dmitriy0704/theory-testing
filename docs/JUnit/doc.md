@@ -154,7 +154,7 @@ TestResult
 - _**void assertNull(Object object)**_ - Проверяет, что данный объект не
   является
   типом null
-- _**void assertTrue(boolean condition)_** - Проверяет, что указанное выражение
+- _**void assertTrue(boolean condition)**_ - Проверяет, что указанное выражение
   является истинным (true)
 - _**void fail()**_ - Проваливает тест без вывода сообщений.
 
